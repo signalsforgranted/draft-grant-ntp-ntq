@@ -1,7 +1,7 @@
 ---
 title: "Network Time Security over QUIC"
 category: info
-docname: draft-grant-ntp-ntq
+docname: draft-grant-ntp-ntq-latest
 submissiontype: IETF
 number:
 date:
