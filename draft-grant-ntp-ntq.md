@@ -40,7 +40,7 @@ This document describes the implementation of the Network Time Security protocol
 
 # Introduction
 
-Network Time Security (NTS) [RFC8915] defines the 
+Network Time Security (NTS) [RFC8915] defines the
 
 There are several key reasons to consider the use of QUIC for NTS Key Establishment services; QUIC like NTP is based on UDP, which means that networks or network segments.
 
@@ -64,13 +64,13 @@ General security considerations for time protocols are discussed in RFC 7384 [RF
 
 IANA is requested to allocate the following entry in the Service Name and Transport Protocol Port Number Registry [RFC6335]:
 
-  Service Name: 
+  Service Name:
   : ntske
 
   Transport Protocol:
   : udp
 
-  Assignee: 
+  Assignee:
   : IESG <iesg@ietf.org>
 
   Contact:
@@ -79,10 +79,10 @@ IANA is requested to allocate the following entry in the Service Name and Transp
   Description:
   : Network Time Security Key Establishment
 
-  Reference: 
+  Reference:
   : This Document
 
-  Port Number: 
+  Port Number:
   : 4460
 
 
