@@ -27,20 +27,22 @@ informative:
   RFC5905:
   RFC6335:
   RFC7384:
+  RFC8446:
   RFC8915:
+  RFC9000:
   I-D.draft-ietf-ntp-ntpv5:
 
 ...
 
 --- abstract
 
-This document describes the implementation of the Network Time Security protocol over QUIC.
+This document describes the use of the Network Time Security protocol over QUIC.
 
 --- middle
 
 # Introduction
 
-Network Time Security (NTS) [RFC8915] defines the
+Network Time Security (NTS) [RFC8915] defines the NTS Key Establishment (NTS-KE) protocol, which uses TLS 1.3 [RFC8446] over TCP to secure the distribution of NTP server information and cookies.
 
 There are several key reasons to consider the use of QUIC for NTS Key Establishment services; QUIC like NTP is based on UDP, which means that networks or network segments.
 
@@ -48,9 +50,13 @@ There are several key reasons to consider the use of QUIC for NTS Key Establishm
 
 {::boilerplate bcp14-tagged}
 
-This document uses the terminology established in {{I-D.draft-ietf-ntp-ntpv5}}.
-
 # QUIC Connectivity
+
+## Connection Initiation
+
+## Connection Shutdown
+
+## Error Handling
 
 # Security Considerations
 
@@ -91,4 +97,4 @@ IANA is requested to allocate the following entry in the Service Name and Transp
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge that perhaps this was not the smartest idea.
+TODO acknowledge
