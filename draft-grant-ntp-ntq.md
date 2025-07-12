@@ -1,5 +1,6 @@
 ---
 title: "Network Time Security over QUIC"
+abbrev: "NTS over QUIC"
 category: info
 docname: draft-grant-ntp-ntq-latest
 submissiontype: IETF
@@ -22,13 +23,13 @@ author:
     email: sarah.grant.ietf@gmail.com
 
 normative:
+  RFC8915:
 
 informative:
   RFC5905:
   RFC6335:
   RFC7384:
   RFC8446:
-  RFC8915:
   RFC9000:
   I-D.draft-ietf-ntp-ntpv5:
 
@@ -46,6 +47,10 @@ Network Time Security (NTS) [RFC8915] defines the NTS Key Establishment (NTS-KE)
 
 There are several key reasons to consider the use of QUIC for NTS Key Establishment services; QUIC like NTP is based on UDP, which means that networks or network segments.
 
+Not all of QUIC's capabilities are applicable to providing NTS-KE, however these should not pose any notable concerns for implementators who would most likely be using existing QUIC implementations.
+
+**TODO**: Define what QUIC features aren't of use
+
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
@@ -53,6 +58,14 @@ There are several key reasons to consider the use of QUIC for NTS Key Establishm
 # QUIC Connectivity
 
 ## Connection Initiation
+
+By default, servers should listen and accept QUIC connections on UDP port 4460, unless there is a mutual agreement to use another port.
+
+NTS key establishment connections are established as described in the QUIC transport specification [RFC9000]. During connection establishment support is indicated with the client offering, and the server accepting the Application-Layer Protocol Negotiation (ALPN) token "ntske/1" as per [RFC8915].
+
+All key establishment requests and responses MUST take place through the use of streams; datagrams and other types MUST NOT be used. The client must initiate the bidirectional stream, starting from 0. After each complete key establishment request has been sent, it MUST send a STREAM FIN message to indicate no further data be sent.
+
+All payloads sent within the stream must be in accordance with Section 4, [RFC8915].
 
 ## Connection Shutdown
 
