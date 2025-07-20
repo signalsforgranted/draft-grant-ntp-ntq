@@ -3,9 +3,9 @@
 
 
 Network Time Protocols                                          S. Grant
-Internet-Draft                                              12 July 2025
+Internet-Draft                                              20 July 2025
 Intended status: Informational                                          
-Expires: 13 January 2026
+Expires: 21 January 2026
 
 
                     Network Time Security over QUIC
@@ -48,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 January 2026.
+   This Internet-Draft will expire on 21 January 2026.
 
 Copyright Notice
 
@@ -118,18 +118,24 @@ Table of Contents
    server accepting the Application-Layer Protocol Negotiation (ALPN)
    token "ntske/1" as per [RFC8915].
 
+   *TODO*: Confirm ALPN reuse
+
    All key establishment requests and responses MUST take place through
-   the use of streams; datagrams and other types MUST NOT be used.  The
-   client must initiate the bidirectional stream, starting from 0.
-   After each complete key establishment request has been sent, it MUST
-   send a STREAM FIN message to indicate no further data be sent.
+   the use of streams; other types MUST NOT be used.  The client must
+   initiate an initial bidirectional stream, starting from 0.  After
+   each complete key establishment request has been sent, it MUST send a
+   STREAM FIN message to indicate no further data be sent.
 
    All payloads sent within the stream must be in accordance with
    Section 4, [RFC8915].
 
 3.2.  Connection Shutdown
 
+   *TODO*: Discuss connection cessation, including GOAWAY behaviour
+
 3.3.  Error Handling
+
+   *TODO*: Error codes.  These should ideally map to 8915's codes.
 
 4.  Security Considerations
 
@@ -213,7 +219,7 @@ Table of Contents
 
 Acknowledgments
 
-   TODO acknowledge
+   Thanks to Lucas Pardue for early feedback and suggestions.
 
 Author's Address
 
