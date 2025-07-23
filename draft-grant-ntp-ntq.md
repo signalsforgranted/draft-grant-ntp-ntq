@@ -45,9 +45,9 @@ This document describes the use of the Network Time Security protocol over QUIC.
 
 Network Time Security (NTS) [RFC8915] defines the NTS Key Establishment (NTS-KE) protocol, which uses TLS 1.3 [RFC8446] over TCP to secure the distribution of NTP server information and cookies.
 
-There are several key reasons to consider the use of QUIC for NTS Key Establishment services; QUIC like NTP is based on UDP, which means that networks or network segments.
+There are several key reasons to consider the use of QUIC for NTS Key Establishment services; QUIC like NTP is based on UDP, which means that networks or network segments operating time services can restrict
 
-Not all of QUIC's capabilities are applicable to providing NTS-KE, however these should not pose any notable concerns for implementators who would most likely be using existing QUIC implementations.
+Not all of QUIC's capabilities are applicable to providing NTS-KE, however these should not pose any notable concerns for implementers who would most likely be using existing QUIC implementations.
 
 **TODO**: Define what QUIC features aren't of use
 
@@ -63,13 +63,19 @@ By default, servers should listen and accept QUIC connections on UDP port 4460, 
 
 NTS key establishment connections are established as described in the QUIC transport specification [RFC9000]. During connection establishment support is indicated with the client offering, and the server accepting the Application-Layer Protocol Negotiation (ALPN) token "ntske/1" as per [RFC8915].
 
-All key establishment requests and responses MUST take place through the use of streams; datagrams and other types MUST NOT be used. The client must initiate the bidirectional stream, starting from 0. After each complete key establishment request has been sent, it MUST send a STREAM FIN message to indicate no further data be sent.
+**TODO**: Confirm ALPN reuse
+
+All key establishment requests and responses MUST take place through the use of streams; other types MUST NOT be used. The client must initiate an initial bidirectional stream, starting from 0. After each complete key establishment request has been sent, it MUST send a STREAM FIN message to indicate no further data be sent.
 
 All payloads sent within the stream must be in accordance with Section 4, [RFC8915].
 
 ## Connection Shutdown
 
+**TODO**: Discuss connection cessation, including GOAWAY behaviour
+
 ## Error Handling
+
+**TODO**: Error codes should be specified, however it's worth noting that in NTS the code point 0x0 is an error, whereas in QUIC derived protocols 0x0 usually signals that there is no error.
 
 # Security Considerations
 
@@ -110,4 +116,4 @@ IANA is requested to allocate the following entry in the Service Name and Transp
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge
+Thanks to Lucas Pardue for early feedback and suggestions.
