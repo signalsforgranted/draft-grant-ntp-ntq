@@ -3,9 +3,9 @@
 
 
 Network Time Protocols                                          S. Grant
-Internet-Draft                                              20 July 2025
+Internet-Draft                                              23 July 2025
 Intended status: Informational                                          
-Expires: 21 January 2026
+Expires: 24 January 2026
 
 
                     Network Time Security over QUIC
@@ -48,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 January 2026.
+   This Internet-Draft will expire on 24 January 2026.
 
 Copyright Notice
 
@@ -89,10 +89,11 @@ Table of Contents
 
    There are several key reasons to consider the use of QUIC for NTS Key
    Establishment services; QUIC like NTP is based on UDP, which means
-   that networks or network segments.
+   that networks or network segments operating time services can
+   restrict
 
    Not all of QUIC's capabilities are applicable to providing NTS-KE,
-   however these should not pose any notable concerns for implementators
+   however these should not pose any notable concerns for implementers
    who would most likely be using existing QUIC implementations.
 
    *TODO*: Define what QUIC features aren't of use
@@ -135,7 +136,9 @@ Table of Contents
 
 3.3.  Error Handling
 
-   *TODO*: Error codes.  These should ideally map to 8915's codes.
+   *TODO*: Error codes should be specified, however it's worth noting
+   that in NTS the code point 0x0 is an error, whereas in QUIC derived
+   protocols 0x0 usually signals that there is no error.
 
 4.  Security Considerations
 
