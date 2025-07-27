@@ -47,7 +47,7 @@ Network Time Security (NTS) [RFC8915] defines the NTS Key Establishment (NTS-KE)
 
 There are several key reasons to consider the use of QUIC for NTS Key Establishment services; QUIC like NTP is based on UDP, which means that networks or network segments operating time services can restrict
 
-Not all of QUIC's capabilities are applicable to providing NTS-KE, however these should not pose any notable concerns for implementers who would most likely be using existing QUIC implementations.
+Not all of QUIC's capabilities are applicable to providing key establishment, however these should not pose any notable concerns for implementators who would most likely be using existing QUIC implementations.
 
 **TODO**: Define what QUIC features aren't of use
 
@@ -65,7 +65,7 @@ NTS key establishment connections are established as described in the QUIC trans
 
 **TODO**: Confirm ALPN reuse
 
-All key establishment requests and responses MUST take place through the use of streams; other types MUST NOT be used. The client must initiate an initial bidirectional stream, starting from 0. After each complete key establishment request has been sent, it MUST send a STREAM FIN message to indicate no further data be sent.
+All key establishment requests and responses MUST take place through the use of streams; other types MUST NOT be used. The client must initiate an initial bidirectional stream, starting from stream 0. After each complete key establishment request has been sent, it MUST send a STREAM FIN message to indicate no further data be sent.
 
 All payloads sent within the stream must be in accordance with Section 4, [RFC8915].
 
