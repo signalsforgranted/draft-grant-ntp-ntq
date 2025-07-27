@@ -3,9 +3,9 @@
 
 
 Network Time Protocols                                          S. Grant
-Internet-Draft                                              23 July 2025
+Internet-Draft                                              27 July 2025
 Intended status: Informational                                          
-Expires: 24 January 2026
+Expires: 28 January 2026
 
 
                     Network Time Security over QUIC
@@ -48,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 January 2026.
+   This Internet-Draft will expire on 28 January 2026.
 
 Copyright Notice
 
@@ -92,9 +92,10 @@ Table of Contents
    that networks or network segments operating time services can
    restrict
 
-   Not all of QUIC's capabilities are applicable to providing NTS-KE,
-   however these should not pose any notable concerns for implementers
-   who would most likely be using existing QUIC implementations.
+   Not all of QUIC's capabilities are applicable to providing key
+   establishment, however these should not pose any notable concerns for
+   implementators who would most likely be using existing QUIC
+   implementations.
 
    *TODO*: Define what QUIC features aren't of use
 
@@ -123,9 +124,9 @@ Table of Contents
 
    All key establishment requests and responses MUST take place through
    the use of streams; other types MUST NOT be used.  The client must
-   initiate an initial bidirectional stream, starting from 0.  After
-   each complete key establishment request has been sent, it MUST send a
-   STREAM FIN message to indicate no further data be sent.
+   initiate an initial bidirectional stream, starting from stream 0.
+   After each complete key establishment request has been sent, it MUST
+   send a STREAM FIN message to indicate no further data be sent.
 
    All payloads sent within the stream must be in accordance with
    Section 4, [RFC8915].
