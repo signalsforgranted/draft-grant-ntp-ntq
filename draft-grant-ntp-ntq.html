@@ -1047,7 +1047,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Grant</td>
-<td class="center">Expires 28 January 2026</td>
+<td class="center">Expires 29 January 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1060,12 +1060,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-grant-ntp-ntq-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-07-27" class="published">27 July 2025</time>
+<time datetime="2025-07-28" class="published">28 July 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-01-28">28 January 2026</time></dd>
+<dd class="expires"><time datetime="2026-01-29">29 January 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1201,9 +1201,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Network Time Security (NTS) <span>[<a href="#RFC8915" class="cite xref">RFC8915</a>]</span> defines the NTS Key Establishment (NTS-KE) protocol, which uses TLS 1.3 <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> over TCP to secure the distribution of NTP server information and cookies.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">There are several key reasons to consider the use of QUIC for NTS Key Establishment services; QUIC like NTP is based on UDP, which means that networks or network segments operating time services can restrict<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">Not all of QUIC's capabilities are applicable to providing key establishment, however these should not pose any notable concerns for implementators who would most likely be using existing QUIC implementations.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4"><strong>TODO</strong>: Define what QUIC features aren't of use<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-2">There are several reasons to consider the use of QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> for NTS Key Establishment services, namely QUIC just like NTP is based on UDP leading to a potential simplification in implementation and network management. Implementers can also choose to enable 0-RTT and connection resumption, minimising the amount of traffic to a key establishment server in order to maintain or resume a connection.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">Not all of QUIC's capabilities are applicable to providing key establishment for secure time, however these should not pose any notable concerns for implementators who would most likely be using existing QUIC implementations.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1247,7 +1246,29 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-error-handling">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-error-handling" class="section-name selfRef">Error Handling</a>
         </h3>
-<p id="section-3.3-1"><strong>TODO</strong>: Error codes should be specified, however it's worth noting that in NTS the code point 0x0 is an error, whereas in QUIC derived protocols 0x0 usually signals that there is no error.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">The following error codes are defined for use when abruptly terminating streams, for use as application protocol error codes when aborting reading of streams, or for immediately closing connections.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.3-2">
+          <dt id="section-3.3-2.1">Unrecognised Critical Record (0x0):</dt>
+          <dd style="margin-left: 1.5em" id="section-3.3-2.2">
+            <p id="section-3.3-2.2.1">The server received an NTS record with critical bit set, which could not be understood by the server.<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.3-2.3">Bad Request (0x1):</dt>
+          <dd style="margin-left: 1.5em" id="section-3.3-2.4">
+            <p id="section-3.3-2.4.1">The server received a request that is not complete or syntactically well-formed.<a href="#section-3.3-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.3-2.5">Internal Server Error (0x2):</dt>
+          <dd style="margin-left: 1.5em" id="section-3.3-2.6">
+            <p id="section-3.3-2.6.1">The server <span class="bcp14">MUST</span> respond with this error if it is unable to respond properly due to an internal condition.<a href="#section-3.3-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.3-2.7">No Error (0x1023):</dt>
+          <dd style="margin-left: 1.5em" id="section-3.3-2.8">
+            <p id="section-3.3-2.8.1">No error. This is used when the connection or stream needs to be closed, but there is no error to signal.<a href="#section-3.3-2.8.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
 </section>
 </div>
 </section>
@@ -1333,8 +1354,12 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8915">[RFC8915]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Franke, D.</span>, <span class="refAuthor">Sibold, D.</span>, <span class="refAuthor">Teichel, K.</span>, <span class="refAuthor">Dansarie, M.</span>, and <span class="refAuthor">R. Sundblad</span>, <span class="refTitle">"Network Time Security for the Network Time Protocol"</span>, <span class="seriesInfo">RFC 8915</span>, <span class="seriesInfo">DOI 10.17487/RFC8915</span>, <time datetime="2020-09" class="refDate">September 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8915">https://www.rfc-editor.org/rfc/rfc8915</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9000">[RFC9000]</dt>
+      <dd>
+<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1362,12 +1387,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <span class="refAuthor">Mizrahi, T.</span>, <span class="refTitle">"Security Requirements of Time Protocols in Packet Switched Networks"</span>, <span class="seriesInfo">RFC 7384</span>, <span class="seriesInfo">DOI 10.17487/RFC7384</span>, <time datetime="2014-10" class="refDate">October 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7384">https://www.rfc-editor.org/rfc/rfc7384</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8446">[RFC8446]</dt>
-        <dd>
-<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9000">[RFC9000]</dt>
       <dd>
-<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1379,7 +1400,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">Thanks to Lucas Pardue for early feedback and suggestions.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Thanks to <span class="contact-name">Lucas Pardue</span> for early feedback and suggestions.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
