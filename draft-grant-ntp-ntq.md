@@ -24,13 +24,13 @@ author:
 
 normative:
   RFC8915:
+  RFC9000:
 
 informative:
   RFC5905:
   RFC6335:
   RFC7384:
   RFC8446:
-  RFC9000:
   I-D.draft-ietf-ntp-ntpv5:
 
 ...
@@ -45,11 +45,9 @@ This document describes the use of the Network Time Security protocol over QUIC.
 
 Network Time Security (NTS) [RFC8915] defines the NTS Key Establishment (NTS-KE) protocol, which uses TLS 1.3 [RFC8446] over TCP to secure the distribution of NTP server information and cookies.
 
-There are several key reasons to consider the use of QUIC for NTS Key Establishment services; QUIC like NTP is based on UDP, which means that networks or network segments operating time services can restrict
+There are several reasons to consider the use of QUIC [RFC9000] for NTS Key Establishment services, namely QUIC just like NTP is based on UDP leading to a potential simplification in implementation and network management. Implementers can also choose to enable 0-RTT and connection resumption, minimising the amount of traffic to a key establishment server in order to maintain or resume a connection.
 
-Not all of QUIC's capabilities are applicable to providing key establishment, however these should not pose any notable concerns for implementators who would most likely be using existing QUIC implementations.
-
-**TODO**: Define what QUIC features aren't of use
+Not all of QUIC's capabilities are applicable to providing key establishment for secure time, however these should not pose any notable concerns for implementators who would most likely be using existing QUIC implementations.
 
 # Conventions and Definitions
 
@@ -75,7 +73,19 @@ All payloads sent within the stream must be in accordance with Section 4, [RFC89
 
 ## Error Handling
 
-**TODO**: Error codes should be specified, however it's worth noting that in NTS the code point 0x0 is an error, whereas in QUIC derived protocols 0x0 usually signals that there is no error.
+The following error codes are defined for use when abruptly terminating streams, for use as application protocol error codes when aborting reading of streams, or for immediately closing connections.
+
+Unrecognised Critical Record (0x0):
+ : The server received an NTS record with critical bit set, which could not be understood by the server.
+
+Bad Request (0x1):
+ : The server received a request that is not complete or syntactically well-formed.
+
+Internal Server Error (0x2):
+ : The server MUST respond with this error if it is unable to respond properly due to an internal condition.
+
+No Error (0x1023):
+ : No error. This is used when the connection or stream needs to be closed, but there is no error to signal.
 
 # Security Considerations
 
@@ -116,4 +126,4 @@ IANA is requested to allocate the following entry in the Service Name and Transp
 # Acknowledgments
 {:numbered="false"}
 
-Thanks to Lucas Pardue for early feedback and suggestions.
+Thanks to {{{Lucas Pardue}}} for early feedback and suggestions.
