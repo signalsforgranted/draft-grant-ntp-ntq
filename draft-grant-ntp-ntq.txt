@@ -3,9 +3,9 @@
 
 
 Network Time Protocols                                          S. Grant
-Internet-Draft                                              28 July 2025
+Internet-Draft                                              29 July 2025
 Intended status: Informational                                          
-Expires: 29 January 2026
+Expires: 30 January 2026
 
 
                     Network Time Security over QUIC
@@ -48,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 January 2026.
+   This Internet-Draft will expire on 30 January 2026.
 
 Copyright Notice
 
@@ -75,6 +75,7 @@ Table of Contents
    4.  Security Considerations
    5.  IANA Considerations
      5.1.  Service Name and Transport Protocol Port Number Registry
+     5.2.  Network Time Security Error Codes
    6.  References
      6.1.  Normative References
      6.2.  Informative References
@@ -151,8 +152,8 @@ Table of Contents
    Internal Server Error (0x2):  The server MUST respond with this error
       if it is unable to respond properly due to an internal condition.
 
-   No Error (0x1023):  No error.  This is used when the connection or
-      stream needs to be closed, but there is no error to signal.
+   Stream Error (0x3):  This is used when the connection or stream needs
+      to be closed, but there is no error to signal.
 
 4.  Security Considerations
 
@@ -181,6 +182,17 @@ Table of Contents
    Reference:  This Document
 
    Port Number:  4460
+
+5.2.  Network Time Security Error Codes
+
+   IANA has allocated the following entries in the "Network Time
+   Security Error Codes" registry [RFC8915]:
+
+   Number:  3
+
+   Description:  Stream Error
+
+   Reference:  This Document
 
 6.  References
 
