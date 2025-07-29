@@ -84,8 +84,8 @@ Bad Request (0x1):
 Internal Server Error (0x2):
  : The server MUST respond with this error if it is unable to respond properly due to an internal condition.
 
-No Error (0x1023):
- : No error. This is used when the connection or stream needs to be closed, but there is no error to signal.
+Stream Error (0x3):
+ : This is used when the connection or stream needs to be closed, but there is no error to signal.
 
 # Security Considerations
 
@@ -120,6 +120,18 @@ IANA is requested to allocate the following entry in the Service Name and Transp
   Port Number:
   : 4460
 
+## Network Time Security Error Codes
+
+IANA has allocated the following entries in the "Network Time Security Error Codes" registry [RFC8915]:
+
+  Number:
+   : 3
+
+  Description:
+   : Stream Error
+
+  Reference:
+   : This Document
 
 --- back
 
