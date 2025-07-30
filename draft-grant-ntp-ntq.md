@@ -47,7 +47,7 @@ Network Time Security (NTS) [RFC8915] defines the NTS Key Establishment (NTS-KE)
 
 There are several reasons to consider the use of QUIC [RFC9000] for NTS Key Establishment services, namely QUIC just like NTP is based on UDP leading to a potential simplification in implementation and network management. Implementers can also choose to enable 0-RTT and connection resumption, minimising the amount of traffic to a key establishment server in order to maintain or resume a connection.
 
-Not all of QUIC's capabilities are applicable to providing key establishment for secure time, however these should not pose any notable concerns for implementators who would most likely be using existing QUIC implementations.
+Not all of QUIC's capabilities are applicable to providing key establishment for secure time, however these should not pose any notable concerns for implementations which would most likely be using existing QUIC implementations.
 
 # Conventions and Definitions
 
@@ -60,8 +60,6 @@ Not all of QUIC's capabilities are applicable to providing key establishment for
 By default, servers should listen and accept QUIC connections on UDP port 4460, unless there is a mutual agreement to use another port.
 
 NTS key establishment connections are established as described in the QUIC transport specification [RFC9000]. During connection establishment support is indicated with the client offering, and the server accepting the Application-Layer Protocol Negotiation (ALPN) token "ntske/1" as per [RFC8915].
-
-**TODO**: Confirm ALPN reuse
 
 All key establishment requests and responses MUST take place through the use of streams; other types MUST NOT be used. The client must initiate an initial bidirectional stream, starting from stream 0. After each complete key establishment request has been sent, it MUST send a STREAM FIN message to indicate no further data be sent.
 
