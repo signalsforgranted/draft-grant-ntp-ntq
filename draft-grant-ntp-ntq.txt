@@ -3,9 +3,9 @@
 
 
 Network Time Protocols                                          S. Grant
-Internet-Draft                                              29 July 2025
+Internet-Draft                                              30 July 2025
 Intended status: Informational                                          
-Expires: 30 January 2026
+Expires: 31 January 2026
 
 
                     Network Time Security over QUIC
@@ -48,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 January 2026.
+   This Internet-Draft will expire on 31 January 2026.
 
 Copyright Notice
 
@@ -97,7 +97,7 @@ Table of Contents
 
    Not all of QUIC's capabilities are applicable to providing key
    establishment for secure time, however these should not pose any
-   notable concerns for implementators who would most likely be using
+   notable concerns for implementations which would most likely be using
    existing QUIC implementations.
 
 2.  Conventions and Definitions
@@ -120,8 +120,6 @@ Table of Contents
    establishment support is indicated with the client offering, and the
    server accepting the Application-Layer Protocol Negotiation (ALPN)
    token "ntske/1" as per [RFC8915].
-
-   *TODO*: Confirm ALPN reuse
 
    All key establishment requests and responses MUST take place through
    the use of streams; other types MUST NOT be used.  The client must
